@@ -1,1 +1,14 @@
 # EastBot
+
+A simple bot I am creating for Discord
+
+# Commands
+
+## !kick {mentioned user}
+  This wil kick the mentioned user from the server. Only works for admins/mods.
+
+## !posi
+  This command returns a random positive message from an array of positive messages.
+
+## !say {text}
+  This will delete your message and make the bot say the text instead.
