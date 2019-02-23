@@ -4,6 +4,9 @@ A simple bot I am creating for Discord
 
 # Commands
 
+## !ban {mentioned user}
+  This will ban the mentioned user from the server. Only works for admins/mods.
+
 ## !kick {mentioned user}
   This wil kick the mentioned user from the server. Only works for admins/mods.
 
