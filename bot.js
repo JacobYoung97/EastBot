@@ -44,7 +44,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					serverID: '541477489369677824',
 					userID: evt.d.mentions[0].id
 				});
-				// Sends a message saying they were kicked
+				// Sends a message saying they were banned
 				bot.sendMessage({
 					to: channelID,
 					message: 'Banned ' + evt.d.mentions[0].username + ' from the server!'
