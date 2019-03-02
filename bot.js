@@ -4,6 +4,7 @@ var auth = require('./auth.json');
 
 // Imported modules
 const posiModule = require("./positive");
+const deckModule = require("./deck");
 let positive = posiModule.positiveArray();
 
 // Configure logger settings
@@ -38,13 +39,23 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 						to: channelID,
 						message: 'You cannot use that!'
 					});
+				// Bans the user
 				bot.ban({
 					serverID: '541477489369677824',
 					userID: evt.d.mentions[0].id
 				});
+				// Sends a message saying they were kicked
 				bot.sendMessage({
 					to: channelID,
 					message: 'Banned ' + evt.d.mentions[0].username + ' from the server!'
+				});
+			break;
+			// !deck
+			case 'deck':
+				var message = deckModule.deckName(args[0]);
+				bot.sendMessage({
+					to: channelID,
+					message: message
 				});
 			break;
 			// !kick
@@ -54,22 +65,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 						to: channelID,
 						message: 'You cannot use that!'
 					});
+				// Kicks the user
 				bot.kick({
 					serverID: '541477489369677824',
 					userID: evt.d.mentions[0].id
 				});
+				// Sends a message saying they were kicked
 				bot.sendMessage({
 					to: channelID,
 					message: 'Kicked ' + evt.d.mentions[0].username + ' from the server!'
 				});
 			break;
-            // !ping
-            case 'ping':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Pong!'
-                });
-            break;
 			// !posi
 			case 'posi':
 				bot.sendMessage({
@@ -80,6 +86,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			// !say
 			case 'say':
 				const saidMsg = args.join(" ");
+				// Deletes the message before sending it
 				bot.deleteMessage({
 					channelID: channelID,
 					messageID: evt.d.id
