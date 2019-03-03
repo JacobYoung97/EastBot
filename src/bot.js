@@ -1,10 +1,10 @@
 var Discord = require('discord.io');
 var logger = require('winston');
-var auth = require('./auth.json');
+var auth = require('../auth.json');
 
 // Imported modules
-const posiModule = require("./positive");
-const deckModule = require("./deck");
+const deckModule = require("./modules/deck");
+const posiModule = require("./modules/positive");
 let positive = posiModule.positiveArray();
 
 // Configure logger settings
@@ -18,13 +18,13 @@ var bot = new Discord.Client({
     token: auth.token,
     autorun: true
 });
+// When the bot starts
 bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
         var args = message.substring(1).split(' ');

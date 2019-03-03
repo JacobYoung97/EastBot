@@ -2,7 +2,7 @@
 	"name": "EastBot",
 	"version": "1.0.0",
 	"description": "A bot made by East",
-	"main": "bot.js",
+	"main": "src/bot.js",
 	"author": "Jacob Young",
 	"dependencies": {
 		"discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
