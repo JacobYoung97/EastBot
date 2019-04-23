@@ -9,7 +9,8 @@ module.exports = {
 			"https://www.mtggoldfish.com/deck/1609908", // Kazarov
 			"https://www.mtggoldfish.com/deck/1607716", // Shanna
 			"https://www.mtggoldfish.com/deck/1642808", // Raff
-			"https://www.mtggoldfish.com/deck/1652833" // Tatyova
+			"https://www.mtggoldfish.com/deck/1652833", // Tatyova
+			"https://www.mtggoldfish.com/deck/1791956" // Feather
 		];
 		switch (name.toUpperCase()) {
 			case "SLIMEFOOT":
@@ -39,6 +40,8 @@ module.exports = {
 			case "TATYOVA":
 				return "Tatyova, Benthic Druid: " + decks[8];
 			break;
+			case "FEATHER":
+				return "Feather, the Redeemed: " + decks[9];
 			default:
 				return "That is not an available deck.";
 			break;
