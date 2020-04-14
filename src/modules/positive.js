@@ -8,7 +8,8 @@ module.exports = {
 			"Everything is going to work out in the end.",
 			"You're gonna be just okay, Jacob!",
 			"Take the leap and take the chance! You won't regret it! (:",
-			"You're loved and everyone loves you sm!"
+			"You're loved and everyone loves you sm!",
+            "I always want you in my life."
 		];
 		return positive;
 	}
