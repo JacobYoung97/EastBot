@@ -1,5 +1,6 @@
 module.exports = {	
 	deckName: function(name) {
+		// TODO: add more decks
 		var decks = [
 			"https://www.mtggoldfish.com/deck/1590041", // Slimefoot
 			"https://www.mtggoldfish.com/deck/1590123", // Aryel
@@ -12,39 +13,43 @@ module.exports = {
 			"https://www.mtggoldfish.com/deck/1652833", // Tatyova
 			"https://www.mtggoldfish.com/deck/1791956" // Feather
 		];
+		
+		// The break is probably not necessary since we return right away but it helps to visualize the ending of each case
+		// TODO: add more synonyms to match
 		switch (name.toUpperCase()) {
 			case "SLIMEFOOT":
 				return "Slimefoot, the Stowaway: " + decks[0]
-			break;
+				break;
 			case "ARYEL":
 				return "Aryel, Knight of Windgrace: " + decks[1];
-			break;
+				break;
 			case "HALLAR":
 				return "Hallar, the Firefletcher: " + decks[2];
-			break;
+				break;
 			case "ADELIZ":
 				return "Adeliz, the Cinder Wind: " + decks[3];
-			break;
+				break;
 			case "TRAXOS":
 				return "Traxos, Scourge of Kroog: " + decks[4];
-			break;
+				break;
 			case "KAZAROV":
 				return "Kazarov, Sengir Pureblood: " + decks[5];
-			break;
+				break;
 			case "SHANNA":
 				return "Shanna, Sisay's Legacy: " + decks[6];
-			break;
+				break;
 			case "RAFF":
 				return "Raff Capashen, Ship's Mage: " + decks[7];
-			break;
+				break;
 			case "TATYOVA":
 				return "Tatyova, Benthic Druid: " + decks[8];
-			break;
+				break;
 			case "FEATHER":
 				return "Feather, the Redeemed: " + decks[9];
+				break;
 			default:
 				return "That is not an available deck.";
-			break;
+				break;
 		}
 	}
 };
