@@ -1,6 +1,6 @@
 # EastBot
 
-A simple bot I am creating for Discord.
+A simple bot I am creating for Discord. Will start with a randomly selected game that is is playing. This can be changed with the "!game" command that the bot has.
 
 # Commands
 
