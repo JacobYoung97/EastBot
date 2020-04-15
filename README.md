@@ -21,3 +21,6 @@ A simple bot I am creating for Discord.
 
 ## !obeyme
   Will return a text-to-speech message mentioning it will obey the user who sent this command
+
+## !game {index} or {text}
+  If the index is within the array of games, it will set that to what they are playing. If the index is wrong or they use text, it will set that instead.
