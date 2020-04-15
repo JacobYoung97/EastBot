@@ -1,6 +1,6 @@
 # EastBot
 
-A simple bot I am creating for Discord
+A simple bot I am creating for Discord.
 
 # Commands
 
@@ -18,3 +18,6 @@ A simple bot I am creating for Discord
 
 ## !say {text}
   This will delete your message and make the bot say the text instead.
+
+## !obeyme
+  Will return a text-to-speech message mentioning it will obey the user who sent this command
