@@ -15,35 +15,45 @@ module.exports = {
 		];
 		
 		// The break is probably not necessary since we return right away but it helps to visualize the ending of each case
-		// TODO: add more synonyms to match
 		switch (name.toUpperCase()) {
+			case "GOLGARI":
 			case "SLIMEFOOT":
-				return "Slimefoot, the Stowaway: " + decks[0]
+				return "Slimefoot, the Stowaway: " + decks[0];
 				break;
+			case "ORZHOV":
 			case "ARYEL":
 				return "Aryel, Knight of Windgrace: " + decks[1];
 				break;
+			case "GRUUL":
 			case "HALLAR":
 				return "Hallar, the Firefletcher: " + decks[2];
 				break;
+			case "IZZET":
 			case "ADELIZ":
 				return "Adeliz, the Cinder Wind: " + decks[3];
 				break;
+			case "COLOURLESS":
+			case "COLORLESS":
 			case "TRAXOS":
 				return "Traxos, Scourge of Kroog: " + decks[4];
 				break;
+			case "RAKDOS":
 			case "KAZAROV":
 				return "Kazarov, Sengir Pureblood: " + decks[5];
 				break;
+			case "SELESNYA":
 			case "SHANNA":
 				return "Shanna, Sisay's Legacy: " + decks[6];
 				break;
+			case "AZORIUS":
 			case "RAFF":
 				return "Raff Capashen, Ship's Mage: " + decks[7];
 				break;
+			case "SIMIC":
 			case "TATYOVA":
 				return "Tatyova, Benthic Druid: " + decks[8];
 				break;
+			case "BOROS":
 			case "FEATHER":
 				return "Feather, the Redeemed: " + decks[9];
 				break;
