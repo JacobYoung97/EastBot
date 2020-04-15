@@ -25,9 +25,20 @@ bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
+    var name = "Existential dread"
+    var type = 0;
+    var url = "";
+
+    // Sets a status 
+    bot.setPresence({
+        game: {
+            name,
+            type,
+            url
+        }
+    });
 });
 
-// TODO: change the evt.d.member.roles to check the userId object instead??
 // TODO: add a bad words detector
 // TODO: abstract these cases into their own modules
 bot.on('message', function (user, userID, channelID, message, evt) {
@@ -88,7 +99,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					// Sends a message saying they were kicked
 					bot.sendMessage({
 						to: channelID,
-						message: 'Kicked ' + mentionedUser.username + ' from the server!'
+						message: 'Kicked ' + mentionedUser.username + ' from the server!',
 					});
 				}
 				break;
@@ -110,10 +121,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					channelID: channelID,
 					messageID: evt.d.id
 				});
+				// Now the bot types it
 				bot.sendMessage({
 					to: channelID,
-					message: saidMsg
+					message: saidMsg,
+					typing: true
 				});
+				break;
+			// !obeyme
+			case 'obeyme':
+				// Says the username of the person who interacted with it
+				bot.sendMessage({
+					to: channelID,
+					message: 'fine.....grrrr ' + user,
+					tts: true
+				})
 				break;
         }
     }
