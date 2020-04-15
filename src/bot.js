@@ -105,12 +105,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
             // !posi
             case 'posi':
-                var posiSize = posiModule.length;
                 // The random number in the array of positive messages
-                var positiveMessage = posiModule[Math.floor(Math.random() * posiSize)];
                 bot.sendMessage({
                     to: channelID,
-                    message: positiveMessage
+                    message: posiModule[Math.floor(Math.random() * posiModule.length)]
                 });
                 break;
             // !say
