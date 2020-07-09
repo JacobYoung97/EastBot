@@ -5,6 +5,7 @@
 	"main": "src/bot.js",
 	"author": "Jacob Young",
 	"dependencies": {
+		"covid19-api": "^1.2.1",
 		"discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
 		"winston": "^3.2.1"
 	}

@@ -1,3 +1,4 @@
+var covid = require('covid19-api');
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('../auth.json');
@@ -71,6 +72,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         message: 'Banned ' + mentionedUser.username + ' from the server!'
                     });
                 }
+                break;
+            // !covid
+            case 'covid':
+                // TODO: Update this to actually dynamically ask for the country and put it on top
+                covid.getReportsByCountries("canada").then(function(stats) {
+                    bot.sendMessage({
+                       to: channelID,
+                       message: 'Total cases: **' + stats[0][0]["cases"] + '**\nTotal deaths: **' + stats[0][0]["deaths"] + '**'
+                    });
+                });
                 break;
             // !deck
             case 'deck':
