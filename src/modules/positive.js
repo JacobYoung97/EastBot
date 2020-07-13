@@ -4,8 +4,9 @@ module.exports = [
 	"No matter what you might think, people do love you.",
 	"Don't worry. Be happy.",
 	"Everything is going to work out in the end.",
-	"You're gonna be just okay, Jacob!",
+	"You're gonna be just okay!",
 	"Take the leap and take the chance! You won't regret it! (:",
 	"You're loved and everyone loves you sm!",
-    "I always want you in my life."
+    "I always want you in my life.",
+    "You make me happy!"
 ];

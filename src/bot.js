@@ -75,13 +75,42 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
             // !covid
             case 'covid':
-                // TODO: Update this to actually dynamically ask for the country and put it on top
-                covid.getReportsByCountries("canada").then(function(stats) {
-                    bot.sendMessage({
-                       to: channelID,
-                       message: 'Total cases: **' + stats[0][0]["cases"] + '**\nTotal deaths: **' + stats[0][0]["deaths"] + '**'
+                // A state in the United States is going to be searched (second check is to avoid "State of Palestine" from searching here)
+                // https://www.npmjs.com/package/covid19-api#pluginmanagergetcasesinallusstates for the US states info
+                if (args.length >= 2 && args[0].toLowerCase().localeCompare("state") == 0 && args[1].toLowerCase().localeCompare("of") != 0) {
+                    covid.getCasesInAllUSStates().then(function(stats) {
+                        var stateArray = stats[0][0]["table"];
+                        // TODO: loop through this and compare name to what is in the "USAState" of the array index
+                        for(var i = 0; i < stateArray.length; i++) {
+                            // logger.info(stateArray[i]);
+                        }
                     });
-                });
+                }
+                // A country is given (https://www.npmjs.com/package/covid19-api#pluginmanagergetreportsbycountriescountry for the name/syntax of each country)
+                else if (args.length >= 1) {
+                    var country = args.join("-");
+                    var name = "";
+                    
+                    // This loop will make the name look nice (capitalizes the first letter and appends words together)
+                    for(var i = 0; i < args.length; i++) {
+                        var temp = args[i][0].toUpperCase() + args[i].substring(1).toLowerCase();
+                        name += temp + " ";
+                    }
+                    name = name.trim();
+                    
+                    // Retrieves the information by country and either posts it, or has an error because the country does not exist
+                    covid.getReportsByCountries(country).then(function(stats) {
+                        bot.sendMessage({
+                           to: channelID,
+                           message: '**' + name + ': COVID-19 Cases**\nTotal Cases: ' + stats[0][0]["cases"] + '\nTotal Deaths: ' + stats[0][0]["deaths"]
+                        });
+                    }).catch(function(error) {
+                        bot.sendMessage({
+                           to: channelID,
+                           message: '**' + name + '** is not a country! Cannot retrieve data from a nonexistent country!'
+                        });
+                    });
+                }
                 break;
             // !deck
             case 'deck':
