@@ -78,11 +78,31 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 // A state in the United States is going to be searched (second check is to avoid "State of Palestine" from searching here)
                 // https://www.npmjs.com/package/covid19-api#pluginmanagergetcasesinallusstates for the US states info
                 if (args.length >= 2 && args[0].toLowerCase().localeCompare("state") == 0 && args[1].toLowerCase().localeCompare("of") != 0) {
+                    // Retrieves the information from all United States
                     covid.getCasesInAllUSStates().then(function(stats) {
                         var stateArray = stats[0][0]["table"];
-                        // TODO: loop through this and compare name to what is in the "USAState" of the array index
+                        var name = "";
+                        
+                        // This loop will make the name look nice (and to compare to the returned array's value)
+                        for(var i = 1; i < args.length; i++) {
+                            var temp = args[i][0].toUpperCase() + args[i].substring(1).toLowerCase();
+                            name += temp + " ";
+                        }
+                        name = name.trim();
+                        
+                        // Loops through the returned values (64 of them) to check the state name for equality
                         for(var i = 0; i < stateArray.length; i++) {
-                            // logger.info(stateArray[i]);
+                            if (stateArray[i]["USAState"].localeCompare(name) == 0) {
+                                var messageContent = '**' + stateArray[i]["USAState"] + ': COVID-19 Cases**' +
+                                    '\nTotal Cases: ' + stateArray[i]["TotalCases"] +
+                                    '\nTotal Deaths: ' + stateArray[i]["TotalDeaths"] +
+                                    '\nCases per 100,000: ' + parseFloat(stateArray[i]["Tot_Cases_1M_Pop"].replace(/,/g, ''))/10 +
+                                    '\nTested: ' + stateArray[i]["TotalTests"];
+                                bot.sendMessage({
+                                    to: channelID,
+                                    message: messageContent
+                                });
+                            }
                         }
                     });
                 }
