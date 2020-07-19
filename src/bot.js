@@ -97,60 +97,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: deckModule.deckName(args[0])
                 });
                 break;
-            // !kick
-            case 'kick':
-                // Hardcoded to my role in my personal server, can be changed to a saved list if actually widespread implemented
-                if(evt.d.member.roles.indexOf('542037761310588928') === -1) {
-                    bot.sendMessage({
-                        to: channelID,
-                        message: 'You cannot use that!'
-                    });
-                } else {
-                    var mentionedUser = evt.d.mentions[0];
-                    // Kicks the user
-                    bot.kick({
-                        serverID: '541477489369677824',
-                        userID: mentionedUser.id
-                    });
-                    // Sends a message saying they were kicked
-                    bot.sendMessage({
-                        to: channelID,
-                        message: 'Kicked ' + mentionedUser.username + ' from the server!',
-                    });
-                }
-                break;
-            // !posi
-            case 'posi':
-                // The random number in the array of positive messages
-                bot.sendMessage({
-                    to: channelID,
-                    message: posiModule[Math.floor(Math.random() * posiModule.length)]
-                });
-                break;
-            // !say
-            case 'say':
-                const saidMsg = args.join(" ");
-                // Deletes the message before sending it
-                bot.deleteMessage({
-                    channelID: channelID,
-                    messageID: evt.d.id
-                });
-                // Now the bot types it
-                bot.sendMessage({
-                    to: channelID,
-                    message: saidMsg,
-                    typing: true
-                });
-                break;
-            // !obeyme
-            case 'obeyme':
-                // Says the username of the person who interacted with it
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'fine.....grrrr ' + user,
-                    tts: true
-                })
-                break;
             // !game
             case 'game':
                 // Since -1 is not an index of an array, this will default to what they say
@@ -175,6 +121,60 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({
                     to: channelID,
                     message: message
+                });
+                break;
+            // !kick
+            case 'kick':
+                // Hardcoded to my role in my personal server, can be changed to a saved list if actually widespread implemented
+                if(evt.d.member.roles.indexOf('542037761310588928') === -1) {
+                    bot.sendMessage({
+                        to: channelID,
+                        message: 'You cannot use that!'
+                    });
+                } else {
+                    var mentionedUser = evt.d.mentions[0];
+                    // Kicks the user
+                    bot.kick({
+                        serverID: '541477489369677824',
+                        userID: mentionedUser.id
+                    });
+                    // Sends a message saying they were kicked
+                    bot.sendMessage({
+                        to: channelID,
+                        message: 'Kicked ' + mentionedUser.username + ' from the server!',
+                    });
+                }
+                break;
+            // !obeyme
+            case 'obeyme':
+                // Says the username of the person who interacted with it
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'fine.....grrrr ' + user,
+                    tts: true
+                })
+                break;
+            // !posi
+            case 'posi':
+                // The random number in the array of positive messages
+                bot.sendMessage({
+                    to: channelID,
+                    message: posiModule[Math.floor(Math.random() * posiModule.length)]
+                });
+                break;
+            // !say
+            case 'say':
+                const saidMsg = args.join(" ");
+                // Deletes the message before sending it
+                bot.deleteMessage({
+                    channelID: channelID,
+                    messageID: evt.d.id
+                });
+                // Now the bot types it
+                bot.sendMessage({
+                    to: channelID,
+                    message: saidMsg,
+                    typing: true
                 });
                 break;
         }
