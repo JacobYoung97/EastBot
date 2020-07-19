@@ -1,9 +1,9 @@
-var covid = require('covid19-api');
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('../auth.json');
 
 // Imported modules
+const covidModule = require("./modules/covid");
 const deckModule = require("./modules/deck");
 var posiModule = require("./modules/positive");
 var games = require("./modules/playing");
@@ -75,77 +75,33 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
             // !covid
             case 'covid':
+                var covidFunction = new covidModule(bot, channelID);
                 // A state in the United States is going to be searched (second check is to avoid "State of Palestine" from searching here)
-                // https://www.npmjs.com/package/covid19-api#pluginmanagergetcasesinallusstates for the US states info
                 if (args.length >= 2 && args[0].toLowerCase().localeCompare("state") == 0 && args[1].toLowerCase().localeCompare("of") != 0) {
-                    // Retrieves the information from all United States
-                    covid.getCasesInAllUSStates().then(function(stats) {
-                        var stateArray = stats[0][0]["table"];
-                        var name = "";
-                        
-                        // This loop will make the name look nice (and to compare to the returned array's value)
-                        for(var i = 1; i < args.length; i++) {
-                            var temp = args[i][0].toUpperCase() + args[i].substring(1).toLowerCase();
-                            name += temp + " ";
-                        }
-                        name = name.trim();
-                        
-                        // Loops through the returned values (64 of them) to check the state name for equality
-                        for(var i = 0; i < stateArray.length; i++) {
-                            if (stateArray[i]["USAState"].localeCompare(name) == 0) {
-                                var messageContent = '**' + stateArray[i]["USAState"] + ': COVID-19 Cases**' +
-                                    '\nTotal Cases: ' + stateArray[i]["TotalCases"] +
-                                    '\nTotal Deaths: ' + stateArray[i]["TotalDeaths"] +
-                                    '\nCases per 100,000: ' + parseFloat(stateArray[i]["Tot_Cases_1M_Pop"].replace(/,/g, ''))/10 +
-                                    '\nTested: ' + stateArray[i]["TotalTests"];
-                                bot.sendMessage({
-                                    to: channelID,
-                                    message: messageContent
-                                });
-                            }
-                        }
+                    covidFunction.casesByState(args).then(function(message) {
+                        covidFunction.sender(message);
                     });
                 }
-                // A country is given (https://www.npmjs.com/package/covid19-api#pluginmanagergetreportsbycountriescountry for the name/syntax of each country)
+                // A country is given
                 else if (args.length >= 1) {
-                    var country = args.join("-");
-                    var name = "";
-                    
-                    // This loop will make the name look nice (capitalizes the first letter and appends words together)
-                    for(var i = 0; i < args.length; i++) {
-                        var temp = args[i][0].toUpperCase() + args[i].substring(1).toLowerCase();
-                        name += temp + " ";
-                    }
-                    name = name.trim();
-                    
-                    // Retrieves the information by country and either posts it, or has an error because the country does not exist
-                    covid.getReportsByCountries(country).then(function(stats) {
-                        bot.sendMessage({
-                           to: channelID,
-                           message: '**' + name + ': COVID-19 Cases**\nTotal Cases: ' + stats[0][0]["cases"] + '\nTotal Deaths: ' + stats[0][0]["deaths"]
-                        });
-                    }).catch(function(error) {
-                        bot.sendMessage({
-                           to: channelID,
-                           message: '**' + name + '** is not a country! Cannot retrieve data from a nonexistent country!'
-                        });
+                    covidFunction.casesByCountry(args).then(function(message) {
+                        covidFunction.sender(message);
                     });
                 }
                 break;
             // !deck
             case 'deck':
                 // Simply goes to the module and looks for the name in the function's switch statement
-                var deckLink = deckModule.deckName(args[0]);
                 bot.sendMessage({
                     to: channelID,
-                    message: deckLink
+                    message: deckModule.deckName(args[0])
                 });
                 break;
             // !kick
             case 'kick':
                 // Hardcoded to my role in my personal server, can be changed to a saved list if actually widespread implemented
                 if(evt.d.member.roles.indexOf('542037761310588928') === -1) {
-                    return bot.sendMessage({
+                    bot.sendMessage({
                         to: channelID,
                         message: 'You cannot use that!'
                     });
