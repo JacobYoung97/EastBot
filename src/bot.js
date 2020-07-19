@@ -63,13 +63,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     var mentionedUser = evt.d.mentions[0];
                     // Bans the user that has been mentioned
                     bot.ban({
-                        serverID: '541477489369677824',
+                        serverID: evt.d.guild_id,
                         userID: mentionedUser.id
                     });
                     // Sends a message saying they were banned
                     bot.sendMessage({
                         to: channelID,
-                        message: 'Banned ' + mentionedUser.username + ' from the server!'
+                        message: 'Banned **' + mentionedUser.username + '** from the server!'
                     });
                 }
                 break;
@@ -135,13 +135,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     var mentionedUser = evt.d.mentions[0];
                     // Kicks the user
                     bot.kick({
-                        serverID: '541477489369677824',
+                        serverID: evt.d.guild_id,
                         userID: mentionedUser.id
                     });
                     // Sends a message saying they were kicked
                     bot.sendMessage({
                         to: channelID,
-                        message: 'Kicked ' + mentionedUser.username + ' from the server!',
+                        message: 'Kicked **' + mentionedUser.username + '** from the server!',
                     });
                 }
                 break;

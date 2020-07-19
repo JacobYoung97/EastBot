@@ -34,7 +34,7 @@ module.exports = function(bot, channelID) {
         });
     }
     
-    Refer to https://www.npmjs.com/package/covid19-api#pluginmanagergetreportsbycountriescountry for the name/syntax of each country
+    // Refer to https://www.npmjs.com/package/covid19-api#pluginmanagergetreportsbycountriescountry for the name/syntax of each country
     this.casesByCountry = function(country) {
         var countrySyntax = country.join("-");
         var name = "";
