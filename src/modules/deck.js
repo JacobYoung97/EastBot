@@ -13,7 +13,7 @@ module.exports = {
 			"https://www.mtggoldfish.com/deck/1652833", // Tatyova
 			"https://www.mtggoldfish.com/deck/1791956" // Feather
 		];
-		
+
 		// The break is probably not necessary since we return right away but it helps to visualize the ending of each case
 		switch (name.toUpperCase()) {
 			case "GOLGARI":

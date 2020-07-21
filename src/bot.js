@@ -5,6 +5,7 @@ var auth = require('../auth.json');
 // Imported modules
 const covidModule = require("./modules/covid");
 const deckModule = require("./modules/deck");
+const moderationModule = require("./modules/moderation");
 var posiModule = require("./modules/positive");
 var games = require("./modules/playing");
 
@@ -45,33 +46,15 @@ bot.on('ready', function (evt) {
 bot.on('message', function (user, userID, channelID, message, evt) {
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
+        var moderation = new moderationModule(bot, channelID, evt);
         var args = message.substring(1).split(' ');
         var cmd = args[0];
-        
+
         args = args.splice(1);
         switch(cmd) {
             // !ban
             case 'ban':
-                // Hardcoded to my role in my personal server, can be changed to a saved list if actually widespread implemented
-                if(evt.d.member.roles.indexOf('542037761310588928') === -1) {
-                    return bot.sendMessage({
-                        to: channelID,
-                        message: 'You cannot use that!'
-                    });
-                } else {
-                    // Gets the first mentioned user only (TODO: change this to the ability to iterate through a list of mentions)
-                    var mentionedUser = evt.d.mentions[0];
-                    // Bans the user that has been mentioned
-                    bot.ban({
-                        serverID: evt.d.guild_id,
-                        userID: mentionedUser.id
-                    });
-                    // Sends a message saying they were banned
-                    bot.sendMessage({
-                        to: channelID,
-                        message: 'Banned **' + mentionedUser.username + '** from the server!'
-                    });
-                }
+                moderation.moderator(cmd);
                 break;
             // !covid
             case 'covid':
@@ -125,25 +108,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
             // !kick
             case 'kick':
-                // Hardcoded to my role in my personal server, can be changed to a saved list if actually widespread implemented
-                if(evt.d.member.roles.indexOf('542037761310588928') === -1) {
-                    bot.sendMessage({
-                        to: channelID,
-                        message: 'You cannot use that!'
-                    });
-                } else {
-                    var mentionedUser = evt.d.mentions[0];
-                    // Kicks the user
-                    bot.kick({
-                        serverID: evt.d.guild_id,
-                        userID: mentionedUser.id
-                    });
-                    // Sends a message saying they were kicked
-                    bot.sendMessage({
-                        to: channelID,
-                        message: 'Kicked **' + mentionedUser.username + '** from the server!',
-                    });
-                }
+                moderation.moderator(cmd);
                 break;
             // !obeyme
             case 'obeyme':
