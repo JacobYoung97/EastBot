@@ -42,15 +42,14 @@ bot.on('ready', function (evt) {
 });
 
 // TODO: add a bad words detector
-// TODO: abstract these cases into their own modules
 bot.on('message', function (user, userID, channelID, message, evt) {
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
         var moderation = new moderationModule(bot, channelID, evt);
         var args = message.substring(1).split(' ');
         var cmd = args[0];
-
         args = args.splice(1);
+
         switch(cmd) {
             // !ban
             case 'ban':
@@ -80,6 +79,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: deckModule.deckName(args[0])
                 });
                 break;
+			// !emojis
+			case 'emojis':
+				var emojiArray = bot.servers[evt.d.guild_id].emojis;
+				var formattedText = "";
+				//logger.info(emojiArray);
+				for(emoji in emojiArray) {
+					logger.info(emojiArray[emoji]);
+					if(!emojiArray[emoji].animated) {
+						formattedText += "<:" + emojiArray[emoji].name + ":" + emojiArray[emoji].id + ">\n"
+					} else {
+						formattedText += "<a:" + emojiArray[emoji].name + ":" + emojiArray[emoji].id + ">\n"
+					}
+				}
+				bot.sendMessage({
+					to: channelID,
+					message: formattedText
+				});
+				break;
             // !game
             case 'game':
                 // Since -1 is not an index of an array, this will default to what they say
