@@ -11,7 +11,7 @@ module.exports = {
 			"https://www.mtggoldfish.com/deck/1607716", // Shanna
 			"https://www.mtggoldfish.com/deck/1642808", // Raff
 			"https://www.mtggoldfish.com/deck/1652833", // Tatyova
-			"https://www.mtggoldfish.com/deck/1791956" // Feather
+			"https://www.mtggoldfish.com/deck/1791956"  // Feather
 		];
 
 		// The break is probably not necessary since we return right away but it helps to visualize the ending of each case

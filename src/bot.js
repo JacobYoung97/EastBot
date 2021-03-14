@@ -6,8 +6,9 @@ var auth = require('../auth.json');
 const covidModule = require("./modules/covid");
 const deckModule = require("./modules/deck");
 const moderationModule = require("./modules/moderation");
-var posiModule = require("./modules/positive");
-var games = require("./modules/playing");
+const emojiModule = require("./modules/emojis");
+const posiModule = require("./modules/positive");
+const games = require("./modules/playing");
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -81,21 +82,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
 			// !emojis
 			case 'emojis':
-				var emojiArray = bot.servers[evt.d.guild_id].emojis;
-				var formattedText = "";
-				//logger.info(emojiArray);
-				for(emoji in emojiArray) {
-					logger.info(emojiArray[emoji]);
-					if(!emojiArray[emoji].animated) {
-						formattedText += "<:" + emojiArray[emoji].name + ":" + emojiArray[emoji].id + ">\n"
-					} else {
-						formattedText += "<a:" + emojiArray[emoji].name + ":" + emojiArray[emoji].id + ">\n"
-					}
-				}
-				bot.sendMessage({
-					to: channelID,
-					message: formattedText
-				});
+				var emojis = new emojiModule(bot, channelID, evt);
+				emojis.list();
 				break;
             // !game
             case 'game':
